@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import CardPizza from './CardPizza';
 import pizzas from './pizzas';
+import './Home.css'
 
 const Home = () => {
   return (
