@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import CardPizza from "./CardPizza";
 import { useEffect, useState } from "react";
 
@@ -13,6 +14,13 @@ function Home() {
 
     setPizzas(pizzas);
   };
+=======
+import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import CardPizza from './CardPizza';
+import pizzas from './pizzas';
+import './Home.css'
+>>>>>>> 8e0b2b875892a6759ff3251a62a5d71b326c3b4e
 
   return (
     <div>
