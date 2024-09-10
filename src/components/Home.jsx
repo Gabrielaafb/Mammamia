@@ -1,27 +1,41 @@
-import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import CardPizza from './CardPizza';
-import pizzas from './pizzas';
+import CardPizza from "./CardPizza";
+import { useEffect, useState } from "react";
 
-const Home = () => {
+function Home() {
+  const [pizzas, setPizzas] = useState([]);
+  useEffect(() => {
+    getPizzas();
+  }, []);
+
+  const getPizzas = async () => {
+    const res = await fetch("http://localhost:5000/api/pizzas");
+    const pizzas = await res.json();
+
+    setPizzas(pizzas);
+  };
+
   return (
-    <Container className="py-5">
-      <Row className="justify-content-center">
-        {pizzas.map((pizza) => (
-          <Col xs={12} sm={6} md={4} lg={3} key={pizza.name} className="mb-4">
-            <CardPizza
-              name={pizza.name}
-              price={pizza.price}
-              ingredients={pizza.ingredients}
-              img={pizza.img}
-              className="card"
-            />
-          </Col>
-        ))}
-      </Row>
-    </Container>
+    <div>
+    
+      <div className="container mt-5">
+        <div className="row">
+          {pizzas.map((p) => (
+            <div className="col-md-4 mb-4" key={p.id}>
+              <CardPizza
+                img={p.img}
+                ingredients={p.ingredients}
+                name={p.name}
+                price={p.price}
+                isHome={true}
+                id={p.id}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+    
   );
-};
+}
 
 export default Home;
-
