@@ -1,41 +1,33 @@
-import { useState } from 'react';
-import pizzaCart from '../components/pizzaCart'; 
-import { Button } from 'react-bootstrap';
+import { useContext } from 'react';
+import { CartContext } from '../context/CartContext';
+import { Button, Card } from 'react-bootstrap';
 
 const Cart = () => {
-  const [cart, setCart] = useState(pizzaCart);
-
-  const increaseQuantity = (name) => {
-    setCart(cart.map(pizza => 
-      pizza.name === name ? { ...pizza, quantity: pizza.quantity + 1 } : pizza
-    ));
-  };
-
-  const decreaseQuantity = (name) => {
-    setCart(cart.map(pizza => 
-      pizza.name === name ? 
-        { ...pizza, quantity: pizza.quantity > 1 ? pizza.quantity - 1 : 0 } : pizza
-    ).filter(pizza => pizza.quantity > 0));
-  };
-
-  const calculateTotal = () => {
-    return cart.reduce((total, pizza) => total + pizza.price * pizza.quantity, 0).toLocaleString();
-  };
+  const { cart, increaseQuantity, decreaseQuantity, totalAmount } = useContext(CartContext);
 
   return (
-    <div className="cart">
+    <div className="container my-5">
+      <h2 className="text-center mb-4">Tu Carrito</h2>
       {cart.map(pizza => (
-        <div key={pizza.name} className="cart-item">
-          <img src={pizza.img} alt={pizza.name} style={{ width: '100px', height: 'auto' }} />
-          <h2>{pizza.name}</h2>
-          <p>${pizza.price.toLocaleString()}</p>
-          <p>Quantity: {pizza.quantity}</p>
-          <Button variant="outline-secondary" onClick={() => increaseQuantity(pizza.name)}>+</Button>
-          <Button variant="outline-secondary" onClick={() => decreaseQuantity(pizza.name)}>-</Button>
-        </div>
+        <Card key={pizza.name} className="mb-4 mx-auto" style={{ maxWidth: '500px' }}>
+          <Card.Img variant="top" src={pizza.img} alt={pizza.name} />
+          <Card.Body>
+            <Card.Title>{pizza.name}</Card.Title>
+            <Card.Text>
+              <strong>Precio:</strong> ${pizza.price.toLocaleString()}<br />
+              <strong>Cantidad:</strong> {pizza.quantity}
+            </Card.Text>
+            <div className="d-flex justify-content-between">
+              <Button variant="outline-secondary" onClick={() => increaseQuantity(pizza.id)}>+</Button>
+              <Button variant="outline-secondary" onClick={() => decreaseQuantity(pizza.id)}>-</Button>
+            </div>
+          </Card.Body>
+        </Card>
       ))}
-      <h3>Total: ${calculateTotal()}</h3>
-      <Button variant="primary">Paga aquí</Button>
+      <h3 className="text-center mt-4">Total: ${totalAmount.toLocaleString()}</h3>
+      <div className="text-center mt-3">
+        <Button variant="primary">Paga aquí</Button>
+      </div>
     </div>
   );
 };

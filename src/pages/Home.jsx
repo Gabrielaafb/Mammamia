@@ -1,8 +1,11 @@
 import CardPizza from "../components/CardPizza";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { CartContext } from "../context/CartContext"; // Importa el CartContext
 
 function Home() {
   const [pizzas, setPizzas] = useState([]);
+  const { addToCart } = useContext(CartContext); // Consume la función addToCart del contexto
+
   useEffect(() => {
     getPizzas();
   }, []);
@@ -10,13 +13,11 @@ function Home() {
   const getPizzas = async () => {
     const res = await fetch("http://localhost:5000/api/pizzas");
     const pizzas = await res.json();
-
     setPizzas(pizzas);
   };
 
   return (
     <div>
-    
       <div className="container mt-5">
         <div className="row">
           {pizzas.map((p) => (
@@ -26,15 +27,14 @@ function Home() {
                 ingredients={p.ingredients}
                 name={p.name}
                 price={p.price}
-                isHome={true}
                 id={p.id}
+                addToCart={() => addToCart(p)} // Pasamos la función addToCart con la pizza como argumento
               />
             </div>
           ))}
         </div>
       </div>
     </div>
-    
   );
 }
 

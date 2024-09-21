@@ -10,11 +10,13 @@ import Cart from "./pages/Cart";
 import Pizza from "./pages/Pizza";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
+import { CartProvider } from "./context/CartContext"; // Ruta correcta al contexto
+
 import "./App.css";
 
 function App() {
   return (
-    <>
+    <CartProvider> {/* Envuelve tu aplicación con CartProvider */}
       <Navbar />
       <Header />
       <Routes>
@@ -27,8 +29,9 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
-    </>
+    </CartProvider>
   );
 }
 
 export default App;
+
