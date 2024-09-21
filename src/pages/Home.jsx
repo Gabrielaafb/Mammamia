@@ -1,4 +1,4 @@
-import CardPizza from "./CardPizza";
+import CardPizza from "../components/CardPizza";
 import { useEffect, useState } from "react";
 
 function Home() {

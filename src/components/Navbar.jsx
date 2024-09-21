@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -17,40 +18,40 @@ const NavbarApp = () => {
     >
       <Container>
         <Navbar.Brand style={{ color: "#fff", textShadow: "0 0 10px #03bcf4" }}>
-          MAMMA MÍA!{" "}
+          MAMMA MÍA!
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link className="btn btn-outline-secondary ms-3 " href="#">
+            <Link to="/" className="btn btn-outline-secondary ms-3 nav-link">
               🍕 HOME
-            </Nav.Link>
+            </Link>
             {token ? (
-              <Nav.Link className="btn btn-outline-secondary ms-3 " href="#">
+              <Link to="/logout" className="btn btn-outline-secondary ms-3 nav-link">
                 🔒 Logout
-              </Nav.Link>
+              </Link>
             ) : (
-              <Nav.Link className="btn btn-outline-secondary ms-3 " href="#">
+              <Link to="/login" className="btn btn-outline-secondary ms-3 nav-link">
                 🔐 Login
-              </Nav.Link>
+              </Link>
             )}
             {token ? (
-              <Nav.Link className="btn btn-outline-secondary ms-3 " href="#">
+              <Link to="/profile" className="btn btn-outline-secondary ms-3 nav-link">
                 🔓 Profile
-              </Nav.Link>
+              </Link>
             ) : (
-              <Nav.Link className="btn btn-outline-secondary ms-3 " href="#">
+              <Link to="/register" className="btn btn-outline-secondary ms-3 nav-link">
                 🔐 Register
-              </Nav.Link>
+              </Link>
             )}
           </Nav>
           <Nav>
-            <Nav.Link
-              className=" btn btn-outline-secondary text-white linkNav"
-              href="#"
+            <Link
+              to="/cart"
+              className="btn btn-outline-secondary text-white linkNav nav-link"
             >
-              🛒 Total: $ {total.toLocaleString()}
-            </Nav.Link>
+              🛒 Total: ${total.toLocaleString()}
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
@@ -59,4 +60,3 @@ const NavbarApp = () => {
 };
 
 export default NavbarApp;
-  

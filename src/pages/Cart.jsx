@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import pizzaCart from './pizzaCart'; 
+import pizzaCart from '../components/pizzaCart'; 
 import { Button } from 'react-bootstrap';
 
 const Cart = () => {
