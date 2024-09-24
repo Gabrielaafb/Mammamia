@@ -1,10 +1,10 @@
 import CardPizza from "../components/CardPizza";
 import { useEffect, useState, useContext } from "react";
-import { CartContext } from "../context/CartContext"; // Importa el CartContext
+import { CartContext } from "../context/CartContext"; 
 
 function Home() {
   const [pizzas, setPizzas] = useState([]);
-  const { addToCart } = useContext(CartContext); // Consume la función addToCart del contexto
+  const { addToCart } = useContext(CartContext); 
 
   useEffect(() => {
     getPizzas();

@@ -1,9 +1,11 @@
 import { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
+import { UserContext } from '../context/UserContext'; 
 import { Button, Card } from 'react-bootstrap';
 
 const Cart = () => {
   const { cart, increaseQuantity, decreaseQuantity, totalAmount } = useContext(CartContext);
+  const { token } = useContext(UserContext); 
 
   return (
     <div className="container my-5">
@@ -26,7 +28,11 @@ const Cart = () => {
       ))}
       <h3 className="text-center mt-4">Total: ${totalAmount.toLocaleString()}</h3>
       <div className="text-center mt-3">
-        <Button variant="primary">Paga aquí</Button>
+       
+        <Button variant="primary" disabled={!token}>
+          Paga aquí
+        </Button>
+        {!token && <p className="text-danger mt-2">Debes iniciar sesión para pagar</p>}
       </div>
     </div>
   );

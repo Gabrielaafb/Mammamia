@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import { UserContext } from "../context/UserContext";
+import { Navigate } from "react-router-dom";
 
 const Register = () => {
+  const { token, login } = useContext(UserContext); 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const [modalTitle, setModalTitle] = useState('');
+
+  if (token) {
+    return <Navigate to="/" />;
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,6 +40,8 @@ const Register = () => {
       return;
     }
 
+
+    login("mi_token_de_autenticacion"); 
     setModalTitle('Éxito');
     setModalMessage('¡Registro exitoso!');
     setShowModal(true);
@@ -95,4 +104,5 @@ const Register = () => {
 };
 
 export default Register;
+
 

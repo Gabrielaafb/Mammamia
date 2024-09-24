@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { CartContext } from "../context/CartContext"; // Importa el CartContext
+import { CartContext } from "../context/CartContext";
+import { UserContext } from "../context/UserContext"; 
 
 const NavbarApp = () => {
-  const { totalAmount } = useContext(CartContext); // Consume el totalAmount del contexto
-  const token = false; // Puedes ajustar la lógica del token según tu implementación
+  const { totalAmount } = useContext(CartContext);
+  const { token, logout } = useContext(UserContext); 
 
   return (
     <Navbar
@@ -28,34 +29,36 @@ const NavbarApp = () => {
               🍕 HOME
             </Link>
             {token ? (
-              <Link
-                to="/logout"
-                className="btn btn-outline-secondary ms-3 nav-link"
-              >
-                🔒 Logout
-              </Link>
+              <>
+                <Link
+                  to="/"
+                  className="btn btn-outline-secondary ms-3 nav-link"
+                  onClick={logout} 
+                >
+                  🔒 Logout
+                </Link>
+                <Link
+                  to="/profile"
+                  className="btn btn-outline-secondary ms-3 nav-link"
+                >
+                  🔓 Profile
+                </Link>
+              </>
             ) : (
-              <Link
-                to="/login"
-                className="btn btn-outline-secondary ms-3 nav-link"
-              >
-                🔐 Login
-              </Link>
-            )}
-            {token ? (
-              <Link
-                to="/profile"
-                className="btn btn-outline-secondary ms-3 nav-link"
-              >
-                🔓 Profile
-              </Link>
-            ) : (
-              <Link
-                to="/register"
-                className="btn btn-outline-secondary ms-3 nav-link"
-              >
-                🔐 Register
-              </Link>
+              <>
+                <Link
+                  to="/login"
+                  className="btn btn-outline-secondary ms-3 nav-link"
+                >
+                  🔐 Login
+                </Link>
+                <Link
+                  to="/register"
+                  className="btn btn-outline-secondary ms-3 nav-link"
+                >
+                  🔐 Register
+                </Link>
+              </>
             )}
           </Nav>
           <Nav>
@@ -63,7 +66,7 @@ const NavbarApp = () => {
               to="/cart"
               className="btn btn-outline-secondary text-white linkNav nav-link"
             >
-              🛒 Total: ${totalAmount.toLocaleString()} {/* Mostrar el total dinámico */}
+              🛒 Total: ${totalAmount.toLocaleString()}
             </Link>
           </Nav>
         </Navbar.Collapse>

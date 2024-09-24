@@ -3,9 +3,9 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPizzaSlice } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom'; // Importa Link
 
-const CardPizza = ({ name, price, ingredients, img, addToCart }) => { // Recibe addToCart como prop
-
+const CardPizza = ({ id, name, price, ingredients, img, addToCart }) => {
   const precio = price.toLocaleString();
 
   return (
@@ -22,14 +22,17 @@ const CardPizza = ({ name, price, ingredients, img, addToCart }) => { // Recibe 
             {'  '}
             Ingredientes:
           </strong>
-          <span>{ingredients.join(', ')}</span> {/* Cambiado a <span> */}
+          <span>{ingredients.join(', ')}</span>
         </Card.Text>
         <hr />
         <Card.Text className="text-center text-body-secondary">
           <strong>Precio: </strong> ${precio}
         </Card.Text>
         <div className="d-flex justify-content-around">
-          <Button variant="outline-secondary btn">Ver más</Button>
+          
+          <Link to={`/pizza/${id}`}>
+            <Button variant="outline-secondary btn">Ver más</Button>
+          </Link>
           <Button variant="outline-secondary" onClick={addToCart}>
             Añadir
           </Button>

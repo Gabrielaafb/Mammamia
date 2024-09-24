@@ -33,7 +33,7 @@ export const CartProvider = ({ children }) => {
     return cart.reduce((total, pizza) => total + pizza.price * pizza.quantity, 0);
   };
 
-  const totalAmount = calculateTotal(); // Calcula el total aquí
+  const totalAmount = calculateTotal(); 
 
   return (
     <CartContext.Provider value={{ cart, addToCart, increaseQuantity, decreaseQuantity, totalAmount }}>

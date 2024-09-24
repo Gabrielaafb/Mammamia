@@ -1,12 +1,19 @@
-import { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import { UserContext } from "../context/UserContext"; 
+import { Navigate } from "react-router-dom";
 
 const Login = () => {
+  const { token, login } = useContext(UserContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const [modalTitle, setModalTitle] = useState('');
+
+  if (token) {
+    return <Navigate to="/" />;
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,6 +32,8 @@ const Login = () => {
       return;
     }
 
+    
+    login("mi_token_de_autenticacion");
     setModalTitle('Éxito');
     setModalMessage('¡Inicio de sesión exitoso!');
     setShowModal(true);
@@ -77,3 +86,4 @@ const Login = () => {
 };
 
 export default Login;
+

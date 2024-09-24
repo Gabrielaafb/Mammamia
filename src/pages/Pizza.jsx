@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom"; 
 import CardPizza from "../components/CardPizza";
 
 function Pizza() {
   const [pizza, setPizza] = useState({});
+  const { id } = useParams(); 
 
   useEffect(() => {
     getPizza();
-  }, []);
-
+  }, [id]); 
   const getPizza = async () => {
-    const res = await fetch("http://localhost:5000/api/pizzas/p001");
+    const res = await fetch(`http://localhost:5000/api/pizzas/${id}`); 
     const pizzaData = await res.json();
-
     setPizza(pizzaData);
   };
 
