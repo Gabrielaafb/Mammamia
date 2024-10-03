@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Importar useNavigate para redirigir
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -9,6 +9,12 @@ import { UserContext } from "../context/UserContext";
 const NavbarApp = () => {
   const { totalAmount } = useContext(CartContext);
   const { token, logout } = useContext(UserContext); 
+  const navigate = useNavigate(); 
+
+  const handleLogout = () => {
+    logout(); 
+    navigate("/login"); 
+  };
 
   return (
     <Navbar
@@ -31,18 +37,17 @@ const NavbarApp = () => {
             {token ? (
               <>
                 <Link
-                  to="/"
-                  className="btn btn-outline-secondary ms-3 nav-link"
-                  onClick={logout} 
-                >
-                  🔒 Logout
-                </Link>
-                <Link
                   to="/profile"
                   className="btn btn-outline-secondary ms-3 nav-link"
                 >
                   🔓 Profile
                 </Link>
+                <button
+                  className="btn btn-outline-secondary ms-3 nav-link"
+                  onClick={handleLogout} 
+                >
+                  🔒 Logout
+                </button>
               </>
             ) : (
               <>

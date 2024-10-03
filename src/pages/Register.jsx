@@ -1,22 +1,23 @@
 import { useState, useContext } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { UserContext } from "../context/UserContext";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const { token, login } = useContext(UserContext); 
+  const { token, register } = useContext(UserContext); 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const [modalTitle, setModalTitle] = useState('');
+  const navigate = useNavigate();
 
   if (token) {
     return <Navigate to="/" />;
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!email || !password || !confirmPassword) {
@@ -40,11 +41,21 @@ const Register = () => {
       return;
     }
 
+    try {
+      await register(email, password); 
 
-    login("mi_token_de_autenticacion"); 
-    setModalTitle('Éxito');
-    setModalMessage('¡Registro exitoso!');
-    setShowModal(true);
+      setModalTitle('Éxito');
+      setModalMessage('¡Registro exitoso!');
+      setShowModal(true);
+
+      setTimeout(() => {
+        navigate('/');
+      }, 2000); 
+    } catch (error) {
+      setModalTitle('Error');
+      setModalMessage(error.message || 'Error al registrarse');
+      setShowModal(true);
+    }
   };
 
   return (
@@ -104,5 +115,3 @@ const Register = () => {
 };
 
 export default Register;
-
-

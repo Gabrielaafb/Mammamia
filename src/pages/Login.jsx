@@ -4,7 +4,7 @@ import { UserContext } from "../context/UserContext";
 import { Navigate } from "react-router-dom";
 
 const Login = () => {
-  const { token, login } = useContext(UserContext);
+  const { token, login } = useContext(UserContext);  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -12,10 +12,10 @@ const Login = () => {
   const [modalTitle, setModalTitle] = useState('');
 
   if (token) {
-    return <Navigate to="/" />;
+    return <Navigate to="/" />;  
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!email || !password) {
@@ -32,11 +32,17 @@ const Login = () => {
       return;
     }
 
-    
-    login("mi_token_de_autenticacion");
-    setModalTitle('Éxito');
-    setModalMessage('¡Inicio de sesión exitoso!');
-    setShowModal(true);
+    try {
+      await login(email, password); 
+
+      setModalTitle('Éxito');
+      setModalMessage('¡Inicio de sesión exitoso!');
+      setShowModal(true); 
+    } catch (error) {
+      setModalTitle('Error');
+      setModalMessage(error.message || 'Error al iniciar sesión');
+      setShowModal(true);
+    }
   };
 
   return (
@@ -86,4 +92,3 @@ const Login = () => {
 };
 
 export default Login;
-

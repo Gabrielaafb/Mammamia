@@ -28,7 +28,7 @@ function Home() {
                 name={p.name}
                 price={p.price}
                 id={p.id}
-                addToCart={() => addToCart(p)} // Pasamos la función addToCart con la pizza como argumento
+                addToCart={() => addToCart(p)} 
               />
             </div>
           ))}
